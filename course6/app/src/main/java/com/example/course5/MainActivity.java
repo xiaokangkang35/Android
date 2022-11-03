@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -56,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Myadapter myadapter;
     private RequestQueue queue;
-    private LinearLayout linearLayout;
+    private LinearLayout linearLayout,linearLayout2;
     private int width;
     private int height;
+    private ArrayList<FloorItem> floorItems = new ArrayList<>();
+    private int[] idx = {R.id.img1,R.id.img2,R.id.img3,R.id.img4,R.id.img5};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +72,75 @@ public class MainActivity extends AppCompatActivity {
         //downdata();
         queue = Volley.newRequestQueue(this);
         linearLayout = findViewById(R.id.liner);
+        linearLayout2 = findViewById(R.id.linear2);
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
-        Log.e("tag",width+"##"+height);
+        Log.e("tag",width+"##"+ height);
         getswiper();
         getcate();
+        getfloor();
+    }
+
+    private void getfloor() {
+        // Instantiate the RequestQueue.
+        String url = "https://api-hmugo-web.itheima.net/api/public/v1/home/floordata";
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+//                        Log.e("response",response.toString());
+                        //JSON data analysis
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.toString());
+                            JSONArray jsonArray = jsonObject.getJSONArray("message");
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                JSONObject js = (JSONObject) jsonArray.get(i);
+                                String floor_title = js.getString("floor_title");
+                                JSONObject jsonObject1 = new JSONObject(floor_title);
+                                String floor_title_img = jsonObject1.getString("image_src");
+
+                                JSONArray jsonArray1 = js.getJSONArray("product_list");
+                                ArrayList<Product> products = new ArrayList<>();
+                                for (int j = 0; j<jsonArray1.length();j++){
+                                    JSONObject jsonObject2 = (JSONObject) jsonArray1.get(j);
+                                    String name = jsonObject2.getString("name");
+                                    String img_src = jsonObject2.getString("image_src");
+                                    Product product = new Product(name,img_src);
+                                    products.add(product);
+
+                                }
+                                FloorItem floorItem = new FloorItem(floor_title_img,products);
+                                floorItems.add(floorItem);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        for (int i = 0; i<floorItems.size(); i++){
+                            View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.flooritem,null);
+                            ImageView img = view.findViewById(R.id.floor_title);
+                            Glide.with(MainActivity.this).load(floorItems.get(i).getImg_src()).into(img);
+                            for (int j = 0; j<floorItems.get(i).getProducts().size(); j++){
+                                ImageView img_src = view.findViewById(idx[j]);
+                                Glide.with(MainActivity.this).load(floorItems.get(i).getProducts().get(j).getImage_src()).into(img_src);
+                            }
+                            linearLayout2.addView(view);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
     }
 
     private void getcate() {
@@ -86,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.e("response",response.toString());
+//                        Log.e("response",response.toString());
                         //JSON data analysis
                         try {
                             JSONObject jsonObject = new JSONObject(response.toString());
@@ -94,9 +161,9 @@ public class MainActivity extends AppCompatActivity {
                             for(int i = 0; i < jsonArray.length(); i++){
                                 JSONObject js = (JSONObject) jsonArray.get(i);
                                 String image_src = js.getString("image_src");
-//                            Log.e("tag",image_src);
+//                                Log.e("tag",image_src);
                                 ImageView imageView = new ImageView(MainActivity.this);
-                                Log.e("image_src",image_src);
+//                                Log.e("image_src",image_src);
                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width/jsonArray.length(),width/jsonArray.length());
                                 Glide.with(MainActivity.this).load(image_src).into(imageView);
                                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -176,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.e("response",response.toString());
+//                        Log.e("response",response.toString());
                         //JSON data analysis
                         try {
                             JSONObject jsonObject = new JSONObject(response.toString());
