@@ -1,5 +1,6 @@
 # Android development
 ### 安卓移动应用开发课程作业
+注意：项目内可能存在相关标识性名称，请注意辨别、更改.
 ***
 #### 各文件夹包含内容如下：
 
@@ -10,5 +11,3 @@ course6：通过框架实现从后台获取数据，并完成页面展示.
 ![image](https://github.com/xiaokangkang35/Android_practice/blob/master/image/course6.jpg)  
 ***
 course7：fragment api 练习.
-
-注意：项目内可能存在相关标识性名称，请注意辨别、更改。
