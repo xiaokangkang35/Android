@@ -1,4 +1,4 @@
-package com.example.course5;
+package com.example.course8;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +29,6 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -37,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayList<ImageView> picList = new ArrayList<>();
+    private ArrayList<FloorItem> floorItems = new ArrayList<>();
+
+    private LinearLayout container;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout linearLayout,linearLayout2;
     private int width;
     private int height;
-    private ArrayList<FloorItem> floorItems = new ArrayList<>();
+
     private int[] idx = {R.id.img1,R.id.img2,R.id.img3,R.id.img4,R.id.img5};
 
     @Override
@@ -69,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         viewPager = findViewById(R.id.viewpager);
+
         //downdata();
         queue = Volley.newRequestQueue(this);
         linearLayout = findViewById(R.id.liner);
@@ -105,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                                 String floor_title = js.getString("floor_title");
                                 JSONObject jsonObject1 = new JSONObject(floor_title);
                                 String floor_title_img = jsonObject1.getString("image_src");
-
+                                String name_title = jsonObject1.getString("name");
                                 JSONArray jsonArray1 = js.getJSONArray("product_list");
                                 ArrayList<Product> products = new ArrayList<>();
                                 for (int j = 0; j<jsonArray1.length();j++){
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                                     products.add(product);
 
                                 }
-                                FloorItem floorItem = new FloorItem(floor_title_img,products);
+                                FloorItem floorItem = new FloorItem(name_title,floor_title_img,products);
                                 floorItems.add(floorItem);
 
                             }

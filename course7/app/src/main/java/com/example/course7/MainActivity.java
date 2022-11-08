@@ -22,4 +22,6 @@ public class MainActivity extends AppCompatActivity implements Leftfragment.Call
         Log.e("S",s);
         textView.setText(s);
     }
+
+
 }
