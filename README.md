@@ -23,4 +23,9 @@ course8：fragment 组件的使用。
 此项目开始为 course6 项目副本，后直接添加代码，可能存在部分代码未使用情况。  
 后续将会对其进行替代，对于此文件夹请谨慎使用！！！  
 部分效果展示：  
-![image](https://github.com/xiaokangkang35/Android_practice/blob/master/image/course8.jpg)
+![image](https://github.com/xiaokangkang35/Android_practice/blob/master/image/course8.jpg)  
+#### 可能出现的问题：  
+可能在项目打开时会出现 "R" 标红--->  
+1.Build→Clean Project  
+2.File→Invalidate caches / restart  
+等待项目重新架构即可。
