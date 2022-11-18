@@ -15,7 +15,7 @@ course5：手写函数完成从后台获取数据。
 ***
 course6：通过框架实现从后台获取数据，并完成页面展示。  
 实际项目部分内容展示：  
-![image](https://github.com/xiaokangkang35/Android_practice/blob/master/image/course6.jpg)  
+![image](https://github.com/xiaokangkang35/Android/blob/master/image/course6.jpg)  
 ***
 course7：fragment api 练习。  
 ***
@@ -23,7 +23,7 @@ course8：fragment 组件的使用。
 此项目开始为 course6 项目副本，后直接添加代码，可能存在部分代码未使用情况。  
 后续将会对其进行替代，对于此文件夹请谨慎使用！！！  
 部分效果展示：  
-![image](https://github.com/xiaokangkang35/Android_practice/blob/master/image/course8.jpg)  
+![image](https://github.com/xiaokangkang35/Android/blob/master/image/course8.jpg)  
 #### 可能出现的问题：  
 可能在项目打开时会出现 "R" 标红--->  
 1.Build→Clean Project  
