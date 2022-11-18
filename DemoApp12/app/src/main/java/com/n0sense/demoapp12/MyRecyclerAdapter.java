@@ -16,11 +16,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
     private ArrayList<Product> products;
     private Context context;
+
+    public MyRecyclerAdapter(ArrayList<Product> products, Context context) {
+        this.products = products;
+        this.context = context;
+    }
+
     @NonNull
     @NotNull
     @Override

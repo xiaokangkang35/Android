@@ -12,11 +12,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Data
-@AllArgsConstructor
 public class Requests {
     private RequestQueue requestQueue;
     private final ObjectMapper mapper = new ObjectMapper();
+
+    public Requests(RequestQueue queue) {
+        this.requestQueue = queue;
+    }
+
 
     public interface STATUS_CODE{
         int ERR_NO_INTERNET = 1001;
